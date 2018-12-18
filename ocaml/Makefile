@@ -1,4 +1,4 @@
-solutions = aoc01.exe aoc01b.exe
+solutions = aoc01.exe aoc01b.exe aoc02.exe
 
 all: $(solutions)
 
