@@ -31,4 +31,4 @@ let () =
     CCIO.read_lines_l stdin
     |> List.map FreqTable.of_string
     |> checksum
-    |> Printf.printf "%d\n"
+    |> AocLib.print_result
