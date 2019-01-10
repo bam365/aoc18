@@ -1,11 +1,11 @@
-solutions = aoc01.exe aoc01b.exe aoc02.exe aoc03.exe
+solutions = aoc01.exe aoc01b.exe aoc02.exe aoc03.exe aoc04.exe
 all: $(solutions)
 
 AocLib.cma: AocLib.mli AocLib.ml
-	ocamlfind ocamlc -linkpkg -linkall -package containers,containers.iter -g AocLib.mli AocLib.ml -a -o $@
+	ocamlfind ocamlc -linkpkg -linkall -package calendar,containers,containers.iter -g AocLib.mli AocLib.ml -a -o $@
 
 aoc%.exe: AocLib.cma aoc%.ml 
-	ocamlfind ocamlc -linkpkg -package containers,containers.iter,str -g $^ -o $@
+	ocamlfind ocamlc -linkpkg -package calendar,containers,containers.iter,str -g $^ -o $@
 
 clean:
 	rm $(solutions)

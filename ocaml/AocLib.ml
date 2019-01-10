@@ -8,8 +8,7 @@ let print_result n =
     print_int n;
     print_endline ""
 
-module IntOrdered = struct
-    type t = int
+module IntOrdered = struct type t = int
     let compare = ( - )
 end
 
