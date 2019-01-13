@@ -33,9 +33,9 @@ module GuardAction = struct
     let parser_begins_shift = 
         let guard_num = chars_if (is_space %> not) in
         let ending = skip_space *> string "begins shift" in
-        string "Guard #" *> guard_num <* ending
+        string "Guard #" *> guard_num <* ending 
         >>= fun guard_name -> 
-            BeginsShift(guard_name) |> return
+        BeginsShift(guard_name) |> return
         
             
     let parser_wakes_up = string "wakes up" *> return WakesUp
@@ -53,6 +53,8 @@ module GuardEvent = struct
     type t = Timestamp.t * GuardAction.t
 
     open CCParse
+
+    let compare (t1, _) (t2, _) = CalendarLib.Calendar.compare t1 t2
 
     let parser action = 
         Timestamp.parser
@@ -85,13 +87,9 @@ module MinuteMap = struct
         done;
         t'
 
-    let set_range i j v t = 
-        let t' = Array.copy t in
-        let (x, y) = (max 0 i, min j 59) in
-        for ind = x to y do
-            t'.(ind) <- v
-        done;
-        t'
+    let set_range i j v  = Array.mapi begin fun ind v' ->
+        if ind >= i && ind <= j then v else v'
+    end
 
     let count v = 
         CCArray.fold_left (fun acc v' -> if v = v' then acc + 1 else acc) 0
@@ -102,7 +100,7 @@ module MinuteMap = struct
         t'.(i) <- v_merge t1.(i) t2.(i)
     end
 
-    let max cmp t = 
+    let max_ind cmp t = 
         let folder acc i v =
             match acc with
             | None -> Some(i, v)
@@ -148,7 +146,7 @@ end = struct
         |> CCList.map snd
         |> CCList.fold_left folder IdMap.empty
         |> IdMap.to_list
-        |> CCList.sort (fun (_, x) (_, y) -> y - x)
+        |> CCList.sort (fun (_, x) (_, y) -> y - x) (* reverse on purpose *)
         |> CCOpt.of_list
         |> CCOpt.map fst
 
@@ -159,7 +157,7 @@ end = struct
         |> filter_map (fun (id', mm) -> if id' = id then Some(mm) else None)
         |> map (MinuteMap.map (function Asleep -> 1 | Awake -> 0))
         |> fold_left (MinuteMap.merge (+)) (MinuteMap.empty 0)
-        |> MinuteMap.max (-)
+        |> MinuteMap.max_ind (-)
 end
 
 
