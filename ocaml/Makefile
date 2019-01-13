@@ -1,4 +1,4 @@
-solutions = aoc01.exe aoc01b.exe aoc02.exe aoc03.exe aoc04.exe
+solutions = aoc01.exe aoc01b.exe aoc02.exe aoc03.exe aoc04.exe aoc05.exe
 all: $(solutions)
 
 AocLib.cma: AocLib.mli AocLib.ml
