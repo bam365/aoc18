@@ -68,13 +68,13 @@ def find_areas(points):
     box = bounding_box(pointset)
     unbounded = unbounded_points(pointset)
     bounded = pointset.difference(unbounded)
-    areas = {p: 0 for p in bounded}
+    areas = {p: 0 for p in points}
+    areas[None] = 0
     for x in range(box.left, box.right + 1):
         for y in range(box.top, box.bottom + 1):
             closest = closest_point(Point(x, y), pointset)
-            if closest in areas:
-                areas[closest] = areas[closest] + 1
-    return areas
+            areas[closest] = areas[closest] + 1
+    return {p: areas[p] for p in bounded}
 
 
 def read_points(f):
