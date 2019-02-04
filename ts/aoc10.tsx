@@ -112,14 +112,6 @@ class AnimationUI extends React.Component<AnimationUIProps, AnimationUIState> {
             return;
         }
 
-        console.log('DRAW');
-        const xOff = canvas.width / 2;
-        const yOff = canvas.height / 2;
-        /*
-        const pointToImageIndex = (point: Point) => (
-            ((point.x + xOff) + ((point.y + yOff) * canvas.width)) * 4
-        );
-        */
         const pointToImageIndex = (point: Point) => (
             (point.x + (point.y * canvas.width)) * 4
         );
@@ -129,8 +121,6 @@ class AnimationUI extends React.Component<AnimationUIProps, AnimationUIState> {
         const canvasData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         for (var i = 0; i < points.length; i++) {
             let iImg = pointToImageIndex(points[i]); 
-            canvasData.data[iImg + 0] = 0;
-            canvasData.data[iImg + 1] = 0;
             canvasData.data[iImg + 2] = 255;
             canvasData.data[iImg + 3] = 255;
         }
