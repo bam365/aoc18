@@ -55,7 +55,7 @@ const findMinSeconds = (data: PixelAnimation[], width: number, height: number): 
         const y = (Math.abs(pixel.position.y) - yBound) / Math.abs(pixel.velocity.y);
         return  x > y ? x : y;
     }
-    return _.floor(_.max(_.map(data, timeToBox)) || 0);
+    return _.floor(_.max(_.map(data, timeToBox)) || 0) - 30;
 }
 
 
