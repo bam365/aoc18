@@ -1,0 +1,8 @@
+py/.ropeproject
+py/__pycache__
+py/.idea
+py/venv
+ts/node_modules
+ts/*.js
+ts/.cache
+ts/dist

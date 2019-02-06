@@ -44,3 +44,25 @@ module Array2D = struct
             done
         done
 end
+
+module SquareAngle = struct
+
+    type t = int
+
+    let normal t = t mod 360
+
+    let sin t = 
+        let t' = normal t in
+        if t' < 90 then 1
+        else if t' < 180 then 0
+        else if t' < 270 then -1
+        else 0
+
+    let cos t = 
+        let t' = normal t in
+        if t' < 90 then 0
+        else if t' < 180 then 1
+        else if t' < 270 then 0
+        else -1
+
+end

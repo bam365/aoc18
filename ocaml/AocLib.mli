@@ -21,3 +21,11 @@ module Array2D : sig
 
     val merge_unsafe : ('a -> 'a -> 'a) -> int -> int -> src:'a t -> dest:'a t -> unit
 end
+
+
+module SquareAngle : sig
+    type t = int
+    val normal : t -> t
+    val sin : t -> t
+    val cos : t -> t
+end
